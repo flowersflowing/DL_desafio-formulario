@@ -1,5 +1,5 @@
 function validar() {
-    // var nombre, apellidos, correo, usuario, clave, telefono;
+    // var nombre, apellidos, correo, usuario, clave, telefono, expresion;
     var nombre = document.getElementById("nombre").value;
     var apellidos = document.getElementById("apellidos").value;
     var correo = document.getElementById("correo").value;
@@ -9,7 +9,7 @@ function validar() {
     
     // VALIDACIONES:
 
-    // validación nombre
+    // 1.- validación nombre
 
     if (typeof nombre != 'string' || nombre === "") {
         alert("Todos los campos son obligatorios");
@@ -21,7 +21,7 @@ function validar() {
         return false;
     }
 
-    // validación apellidos
+    // 2.- validación apellidos
 
     if (apellidos === "") {
         alert("Todos los campos son obligatorios");
@@ -33,10 +33,15 @@ function validar() {
         return false;
     }
 
-    // validación correo electrónico
+    // 3.- validación correo electrónico
 
     if (correo === "") {
         alert("Todos los campos son obligatorios");
+        return false;
+    }
+
+    if (verCorreo(correo)) {
+        alert("Debes incluir el arroba y punto en el orden correspondiente");
         return false;
     }
 
@@ -45,7 +50,7 @@ function validar() {
         return false;
     }
 
-    // validación usuario
+    // 4.- validación usuario
 
     if (usuario === "") {
         alert("Todos los campos son obligatorios");
@@ -57,17 +62,22 @@ function validar() {
         return false;
     }
 
-    // validación clave
+    // 5.- validación clave
 
     if (clave === "") {
         alert("Todos los campos son obligatorios");
         return false;
     }
 
-    // validación teléfono
+    // 6.- validación teléfono
 
     if (telefono === "") {
         alert("Todos los campos son obligatorios");
+        return false;
+    }
+
+    if (notNumber(telefono)) {
+        alert("Debes ingresar un teléfono válido");
         return false;
     }
 
@@ -76,26 +86,42 @@ function validar() {
         return false;
     }
 
-    // else
+    // Else para todos
 
     else {
-        // llamar la función para ver el @ y el punto;
-        // alert("Los datos fueron ingresados correctamente");
-        alert("Felicitaciones, acabas de registrarte existosamente. Bienvenid@ " + nombre + " " + apellidos + ". Tu nombre de usuario es " + usuario + ". Y contraseña " + clave);
+        // c) alert("Los datos fueron ingresados correctamente");
+        alert("Felicitaciones, acabas de registrarte existosamente. Bienvenid@ " + nombre + " " + apellidos + ". Tu nombre de usuario es " + usuario + ". Y contraseña " + clave); 
     } 
+    // se impremen los datos en la consola
+
+    console.log("nombre:", nombre);
+    console.log("apellidos:", apellidos);
+    console.log("correo:", correo);
+    console.log("usuario:", usuario);
+    console.log("pass:", clave);
+    console.log("telefono:", telefono);
+    return false;
 }
 
-function notNumber(telefono) {
-    if (isNaN(telefono)) {
-      return true; // o false?
-    }
-    alert("Debes ingresar un teléfono válido");
-  }
-  /*if( isNaN(valor) ) {
-    return false;
-  } */
+// otras funciones
 
-function verCorreo(correo) {
-    var arroba = correo.indexOf('@');
-    //agregar el indexOf del punto tomando la variable arroba + 1
+function notNumber(num) {
+    if (isNaN(num)) {
+        return true;    
+    }
+    else {
+        console.log("Caímos adentro del else en notNumer(num)");
+    }
+}
+
+function verCorreo(mail) {
+    var arroba = mail.indexOf('@'); 
+    if (arroba >= -1) {
+        if (arroba >= (mail.indexOf('.') + 1)){
+            return true;
+        }
+    }
+    else { 
+        return true;
+    }
 }
